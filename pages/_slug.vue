@@ -6,11 +6,13 @@
 </template>
 
 <script>
-  import {POST} from 'fetchier'
+  import {GQL} from 'fetchier'
 
   export default {
+    mounted() {
+      window.location.replace(`https://dev.forms.bloo.io/f/${this.form.id}`)
+    },
     head() {
-      console.log('head', this.form)
       return {
         title: this.form.title,
         description: this.form.description,
@@ -28,7 +30,7 @@
           {
             hid: 'og:site_name',
             property: 'og:site_name',
-            content: 'Localhost Testing'
+            content: 'Form Link Generator'
           },         
           {
             hid: 'og:type',
@@ -36,17 +38,41 @@
             content: 'article',
           },
           {
-            hid: 'og:url',
-            property: 'og:url',
-            content: this.form.generatedUrl,
+            hid: 'og:image',
+            property: 'og:image',
+            content: this.form.imageURL,
           },
         ]
       }
     },
-    asyncData({params: {slug}, payload}) {
-      return POST({url: 'http://localhost:3000/api/json', body:{url: slug}})
-        .then(form => ({form}))
-        .catch(console.error)
+    async asyncData({params: {slug}, payload}) {
+      let data = {
+        id: 'something',
+        title: 'Unknown title',
+        description: 'Unknown description'
+      }
+
+      let {formQueries: {form = data}} = await GQL({
+        url: 'https://api-dev.bloo.io/graphql', query: `
+          {
+            formQueries {
+              form(id: "${slug}") {
+                id title description imageURL
+              }
+            }
+          }
+        `
+      }).catch(e => {
+        console.error(e)
+        return data
+      })
+
+      return {
+        form: {
+          ...form,
+          description: form?.description.replace(/<\/?[^>]+(>|$)/g, '')
+        }
+      }
     },
   }
 </script>

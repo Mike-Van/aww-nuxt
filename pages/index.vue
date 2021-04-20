@@ -21,32 +21,35 @@
             v-bind:loading="loading"
             v-bind:disabled="loading"
           >
-            Continue
+            Generate
           </v-btn>
         </v-card-actions>
       </v-card>
 
       <v-dialog
         v-model="dialog"
-        max-width="290"
+        max-width="480"
       >
-        <v-card>
+        <v-card class="d-flex flex-column align-center">
           <v-card-title class="headline">
             Your shareable link is generated.
           </v-card-title>
 
-          <v-card-text class="my-4">
-            <a v-bind:href="generated" id="myInput">{{generated}}</a>
+          <v-card-text class="my-4 text-center">
+            <a target="_blank" v-bind:href="generated">{{generated}}</a>
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer />
-
             <v-btn
-              text
+              color="primary"
               v-on:click="copyToClipboard"
             >
-              Copy & Close
+              <v-icon
+                right
+                dark
+              >
+                mdi-content-paste
+              </v-icon> &nbsp; Copy & Close
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -57,58 +60,53 @@
 </template>
 
 <script>
-import {POST} from 'fetchier'
+  import Logo from '~/components/Logo.vue'
+  import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  },
-
-  data: () => ({
-    original: 'https://dev.forms.bloo.io/f/cknnzoqob274708updnwwz3rrz',
-    generated: '',
-    loading: false,
-    dialog: false,
-    patternUrl: /https\:\/\/dev\.forms\.bloo\.io\/f\//g
-  }),
-
-  methods: {
-    async generateLink() {
-      try {
-        this.loading = true
-        
-        if(!this.original.match(this.patternUrl)) throw 'Unsupport URL format'
-
-        const {generatedUrl, ...data} = await POST({
-          url: '/api/json', 
-          body: {url: this.original.replace(this.patternUrl, '')}
-        })
-
-        console.log('GQL', data)
-
-        this.generated = generatedUrl
-        this.loading = false
-        this.dialog = true
-      } catch(e) {
-        console.error(e)
-        this.loading = false
-      }
+  export default {
+    components: {
+      Logo,
+      VuetifyLogo
     },
 
-    copyToClipboard() {
-      const el = document.createElement('input');
-      el.setAttribute('type', 'text')
-      el.value = this.generated;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      this.dialog = false
+    data: () => ({
+      original: '',
+      generated: '',
+      loading: false,
+      dialog: false,
+      patternUrl: /https\:\/\/dev\.forms\.bloo\.io\/f\//g
+    }),
+
+    methods: {
+      async generateLink() {
+        try {
+          this.loading = true
+          
+          if(!this.original.match(this.patternUrl)) throw 'Unsupport URL format'
+
+          await new Promise(res => setTimeout(() => res(), 500))
+
+          this.generated = this.original.replace(this.patternUrl, window.location.href)
+          this.loading = false
+          this.dialog = true
+        } catch(e) {
+          console.error(e)
+          this.loading = false
+        }
+      },
+
+      copyToClipboard() {
+        console.log('generated', this.generated)
+        const el = document.createElement('input');
+        el.setAttribute('type', 'text')
+        el.value = this.generated;
+        console.log('el.value', el.value)
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        this.dialog = false
+      }
     }
   }
-}
 </script>

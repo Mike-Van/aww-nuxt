@@ -1,4 +1,4 @@
-# test-nuxt-app
+# aww-nuxt-app
 
 ## Build Setup
 

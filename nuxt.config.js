@@ -3,14 +3,9 @@ import {GQL} from 'fetchier'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  target: 'server',
-  serverMiddleware: [
-    // Will register file from project server-middleware directory to handle /server-middleware/* requires
-    { path: '/api', handler: '~/api/index.js' },
-  ],
   head: {
-    titleTemplate: '%s - test-nuxt-app',
-    title: 'test-nuxt-app',
+    titleTemplate: '%s - aww-nuxt-app',
+    title: 'aww-nuxt-app',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,27 +15,6 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
-  // generate: {
-    // fullStatic: true,
-    // async routes() {
-    //   let {formQueries: {form}} = await GQL({
-    //     url: 'https://api-dev.bloo.io/graphql', query: `
-    //       {
-    //         formQueries {
-    //           form(id: "cknnzoqob274708updnwwz3rrz") {
-    //             id title description
-    //           }
-    //         }
-    //       }
-    //     `
-    //   })
-    //   return [{
-    //     route: `/${form.id}`,
-    //     payload: form
-    //   }]
-    // }
-  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
