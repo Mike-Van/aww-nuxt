@@ -9,12 +9,44 @@
   import {POST} from 'fetchier'
 
   export default {
-    async asyncData({ params: {slug}, payload}) {
-      console.log('payload', payload)
+    head() {
+      console.log('head', this.form)
       return {
-        data: payload || POST({url: '/api/json', body: {url: slug}})
+        title: this.form.title,
+        description: this.form.description,
+        meta: [
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            content: this.form.title
+          },
+          {
+            hid: 'og:description',
+            property: 'og:description',
+            content: this.form.description
+          },
+          {
+            hid: 'og:site_name',
+            property: 'og:site_name',
+            content: 'Localhost Testing'
+          },         
+          {
+            hid: 'og:type',
+            property: 'og:type',
+            content: 'article',
+          },
+          {
+            hid: 'og:url',
+            property: 'og:url',
+            content: this.form.generatedUrl,
+          },
+        ]
       }
     },
-    data: obj => console.log('data init', obj)
+    asyncData({params: {slug}, payload}) {
+      return POST({url: 'http://localhost:3000/api/json', body:{url: slug}})
+        .then(form => ({form}))
+        .catch(console.error)
+    },
   }
 </script>

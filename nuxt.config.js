@@ -3,7 +3,7 @@ import {GQL} from 'fetchier'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  target: 'static',
+  target: 'server',
   serverMiddleware: [
     // Will register file from project server-middleware directory to handle /server-middleware/* requires
     { path: '/api', handler: '~/api/index.js' },
@@ -21,25 +21,26 @@ export default {
     ]
   },
 
-  generate: {
-    async routes() {
-      let {formQueries: {form}} = await GQL({
-        url: 'https://api-dev.bloo.io/graphql', query: `
-          {
-            formQueries {
-              form(id: "cknnzoqob274708updnwwz3rrz") {
-                id title description
-              }
-            }
-          }
-        `
-      })
-      return [{
-        route: `/${form.id}`,
-        payload: form
-      }]
-    }
-  },
+  // generate: {
+    // fullStatic: true,
+    // async routes() {
+    //   let {formQueries: {form}} = await GQL({
+    //     url: 'https://api-dev.bloo.io/graphql', query: `
+    //       {
+    //         formQueries {
+    //           form(id: "cknnzoqob274708updnwwz3rrz") {
+    //             id title description
+    //           }
+    //         }
+    //       }
+    //     `
+    //   })
+    //   return [{
+    //     route: `/${form.id}`,
+    //     payload: form
+    //   }]
+    // }
+  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
