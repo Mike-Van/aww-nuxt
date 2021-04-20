@@ -3,13 +3,17 @@
     <v-col cols="12" sm="8" md="6">
       <div class="text-center">
         <logo />
+        <vuetify-logo />
       </div>
       <v-card>
         <v-card-title class="headline">
           Welcome to form link generator
         </v-card-title>
         
-        <v-text-field class="mx-4" v-model="original" label="Link here" />
+        <v-text-field 
+          class="mx-4" v-model="original" label="Link here" 
+          :rules="rules"
+        />
         
         <v-card-actions>
           <v-spacer />
@@ -60,6 +64,8 @@
 </template>
 
 <script>
+  import copy from 'copy-to-clipboard'
+ 
   import Logo from '~/components/Logo.vue'
   import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
@@ -74,7 +80,14 @@
       generated: '',
       loading: false,
       dialog: false,
-      patternUrl: /https\:\/\/dev\.forms\.bloo\.io\/f\//g
+      patternUrl: /https\:\/\/dev\.forms\.bloo\.io\/f\//g,
+      rules: [
+        value => !!value || 'Required.',
+        value => {
+          const pattern = /https\:\/\/dev\.forms\.bloo\.io\/f\//g
+          return value.match(pattern) || 'Must start with "https://dev.forms.bloo.io/f/..."'
+        },
+      ]
     }),
 
     methods: {
@@ -97,14 +110,15 @@
 
       copyToClipboard() {
         console.log('generated', this.generated)
-        const el = document.createElement('input');
-        el.setAttribute('type', 'text')
-        el.value = this.generated;
-        console.log('el.value', el.value)
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        copy(this.generated)
+        // const el = document.createElement('input');
+        // el.setAttribute('type', 'text')
+        // el.value = this.generated;
+        // console.log('el.value', el.value)
+        // document.body.appendChild(el);
+        // el.select();
+        // document.execCommand('copy');
+        // document.body.removeChild(el);
         this.dialog = false
       }
     }
