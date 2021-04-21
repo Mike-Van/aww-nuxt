@@ -77,7 +77,7 @@
         form: {
           ...form,
           title: form?.title || data.title,
-          description: form?.description?.replace(/<\/?[^>]+(>|$)/g, '') || data.id,
+          description: form?.description?.replace(/<\/?[^>]+(>|$)/g, '') || data.description,
           imageURL: form?.snapshotURL || form?.imageURL
             || 'https://scontent.fpnh2-1.fna.fbcdn.net/v/t1.6435-9/89338414_492696631410324_1116546820986634240_n.png?_nc_cat=100&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGguH22kcYbuLTVsQD2wwyK0XphGIcIhoDRemEYhwiGgCApyqXLTgLnvyUQEOlpaQT2wiTyeuHef9JKwo6Pqkw0&_nc_ohc=s6RvQBh9Q6QAX8GfwaG&_nc_ht=scontent.fpnh2-1.fna&oh=c06fa1ab427f291d1140c9d9fdff8188&oe=60A7112A'
         }
