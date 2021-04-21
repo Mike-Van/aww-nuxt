@@ -57,7 +57,7 @@
         description: 'Unknown description'
       }
 
-      let {formQueries: {form = data}} = await GQL({
+      let {form = data} = await GQL({
         url: 'https://api-dev.bloo.io/graphql', query: `
           {
             formQueries {
@@ -67,9 +67,10 @@
             }
           }
         `
-      }).catch(e => {
-        console.error(e)
-        return data
+      }).then(({formQueries}) => formQueries)
+      .catch(e => {
+        console.error('failed to fetched data', e)
+        return {form: data}
       })
 
       return {
