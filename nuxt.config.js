@@ -1,10 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
-import {GQL} from 'fetchier'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - aww-nuxt-app',
     title: 'aww-nuxt-app',
     meta: [
       { charset: 'utf-8' },

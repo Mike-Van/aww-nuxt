@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <h1>Hi!</h1>
-    <p>Fuck Off Kindly :D</p>
+   <div class="text-center">
+    <v-overlay :value="true" opacity="1">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+      <p class="overline my-4">Redirecting</p>
+    </v-overlay>
   </div>
 </template>
 
