@@ -76,7 +76,9 @@
       return {
         form: {
           ...form,
-          description: form?.description.replace(/<\/?[^>]+(>|$)/g, '')
+          title: form?.title || data.title,
+          description: form?.description?.replace(/<\/?[^>]+(>|$)/g, '') || data.id,
+          imageURL: form.imageURL || 'https://uploads-ssl.webflow.com/5f5cccc7579255b90e371926/5f5cd6c013e49b4557f190bf_final%20logo_bloo%20logo.svg'
         }
       }
     },
