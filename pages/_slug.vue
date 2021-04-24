@@ -15,9 +15,15 @@
 
   export default {
     mounted() {
-      window.location.replace(`https://dev.forms.bloo.io/f/${this.form.id}`)
+      console.log('mounted')
+    //   window.location.replace(`https://dev.forms.bloo.io/f/${this.form.id}`)
+    },
+    async middleware({redirect}) {
+      console.log('middleware')
+      // redirect('https://google.com')
     },
     head() {
+      console.log('head')
       return {
         title: this.form.title,
         description: this.form.description,
@@ -51,6 +57,7 @@
       }
     },
     async asyncData({params: {slug}, payload}) {
+      console.log('asyncData')
       let data = {
         id: 'something',
         title: 'Unknown title',

@@ -99,7 +99,7 @@
 
           await new Promise(res => setTimeout(() => res(), 500))
 
-          this.generated = this.original.replace(this.patternUrl, window.location.href)
+          this.generated = this.original.replace(this.patternUrl, `${window.location.href}shared?fid=`)
           this.loading = false
           this.dialog = true
         } catch(e) {
@@ -111,14 +111,6 @@
       copyToClipboard() {
         console.log('generated', this.generated)
         copy(this.generated)
-        // const el = document.createElement('input');
-        // el.setAttribute('type', 'text')
-        // el.value = this.generated;
-        // console.log('el.value', el.value)
-        // document.body.appendChild(el);
-        // el.select();
-        // document.execCommand('copy');
-        // document.body.removeChild(el);
         this.dialog = false
       }
     }
