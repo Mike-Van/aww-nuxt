@@ -47,7 +47,7 @@ app.all('/', async (req, res) => {
   // console.log('final', form)
 
   if(!fs.existsSync(`static/${req.query.fid}.png`)) {
-    const browser = await puppeteer.launch({args: ['--no-sandbox','--disable-setuid-sandbox']})
+    const browser = await puppeteer.launch({args: ['--no-sandbox']})
     const page = await browser.newPage()
 
     await page.goto(`https://dev.forms.bloo.io/f/${req.query.fid}`, {
