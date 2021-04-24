@@ -47,18 +47,18 @@ app.all('/', async (req, res) => {
   // console.log('final', form)
 
   if(!fs.existsSync(`static/${req.query.fid}.png`)) {
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
+    const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']})
     const page = await browser.newPage()
 
     await page.goto(`https://dev.forms.bloo.io/f/${req.query.fid}`)
     
     await new Promise(res => setTimeout(() => res(), 2000))
     
-    await page.screenshot({path: `static/${req.query.fid}.png`})
+    await page.screenshot({path: `static/${req.query.fid}.jpg`})
     await browser.close()
   }
 
-  // console.log('image path', `${req.protocol}://${req.hostname}/${req.query.fid}.png`)
+  // console.log('image path', `${req.protocol}://${req.hostname}/${req.query.fid}.jpg`)
 
   res.send(`
     <!doctype html>
@@ -77,7 +77,7 @@ app.all('/', async (req, res) => {
       <meta data-n-head="ssr" data-hid="og:type" property="og:type" content="article">
       <meta data-n-head="ssr" data-hid="og:image:height" property="og:image:height" content="630">
       <meta data-n-head="ssr" data-hid="og:image:width" property="og:image:width" content="1200">
-      <meta data-n-head="ssr" data-hid="og:image" property="og:image" content="${req.protocol}://${req.hostname}/${req.query.fid}.png">
+      <meta data-n-head="ssr" data-hid="og:image" property="og:image" content="${req.protocol}://${req.hostname}/${req.query.fid}.jpg">
     </head>
   `)
 })
