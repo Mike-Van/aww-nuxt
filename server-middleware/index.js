@@ -54,7 +54,7 @@ app.all('/', async (req, res) => {
       waitUntil: 'networkidle2',
     })
     
-    await new Promise(res => setTimeout(() => res(), 2000))
+    // await new Promise(res => setTimeout(() => res(), 2000))
     
     await page.screenshot({path: `static/${req.query.fid}.jpg`})
     await browser.close()
