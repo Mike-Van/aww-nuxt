@@ -1,10 +1,15 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
+      <v-row justify="center" align="center">
+        <v-col class="d-flex align-center" sm="12" md="6">
+          <img 
+            width="100%" 
+            height="auto" 
+            src="https://uploads-ssl.webflow.com/5f5cccc7579255b90e371926/5f5cd6c013e49b4557f190bf_final%20logo_bloo%20logo.svg" 
+          />
+        </v-col>
+      </v-row>
       <v-card>
         <v-card-title class="headline">
           Welcome to form link generator
