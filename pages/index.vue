@@ -2,12 +2,15 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-row justify="center" align="center">
-        <v-col class="d-flex align-center" sm="12" md="6">
+        <v-col sm="12" md="3" class="d-flex align-center">
           <img 
             width="100%" 
             height="auto" 
             src="https://uploads-ssl.webflow.com/5f5cccc7579255b90e371926/5f5cd6c013e49b4557f190bf_final%20logo_bloo%20logo.svg" 
           />
+        </v-col>
+        <v-col sm="12" md="3" px="0">
+          <p class="text-h2 font-weight-black primary--text my-2">forms</p>
         </v-col>
       </v-row>
       <v-card>
@@ -23,7 +26,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            class="mr-2"
+            class="mr-2 font-weight-bold"
             color="primary"
             nuxt
             v-on:click="generateLink"
